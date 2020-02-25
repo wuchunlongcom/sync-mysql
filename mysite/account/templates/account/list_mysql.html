@@ -1,0 +1,13 @@
+{% extends "account/layout.html" %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container theme-showcase" role="main">         
+      <h3> {{meg|safe}} </h3>
+         id - sid - name - address  <br>
+       {% for d in data_list %}
+          {{d.0}} -  {{d.1}} - {{d.2}}- {{d.3}}   <br>
+       {% endfor %}
+        
+    </div> <!-- /container -->
+{% endblock %}

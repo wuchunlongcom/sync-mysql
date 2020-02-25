@@ -1,0 +1,18 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+
+<div>                
+	
+	<form action="allow_sync/" method="POST" style="display:inline">
+    	{% csrf_token %}
+    	<span style="color:#f00">必须先按【数据库状态】按钮</span>&nbsp;<button type="submit">数据库状态</button>
+	</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+    <span style="font-size:20px; color:#3ACC3A;">数据更新中，请稍等...  &nbsp;&nbsp;&nbsp;&nbsp; </span>
+    
+</div>
+<br/>
+{{ block.super }}
+
+{% endblock %}

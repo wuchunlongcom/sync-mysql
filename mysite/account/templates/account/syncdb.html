@@ -1,0 +1,40 @@
+{% extends "account/layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("p2").hide();
+        $("p1").click(function(){
+            $("p2").show();
+            $("p1").hide();
+        });
+    });
+</script>
+
+
+
+<div class="container theme-showcase" role="main">
+    <br><br><br>
+    <div class="col-md-12 column">
+        <div class="jumbotron"> 
+            <div>
+                <p1>
+                <form action="/syncdb/" method="POST" >
+                    {% csrf_token %}   
+                    <button class="btn btn-lg btn-danger btn-block" type="submit">{{meg}}</button>
+                </form>
+                </p1>
+
+                <p2>
+                <span style="font-size:20px; color:#3ACC3A;">数据更新中，请稍等...  &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-spin fa-2x fa-spinner fa-pulse"></i> </span>
+                </p2>
+            </div>
+        </div>        
+    </div>
+    <br><br><br>
+
+
+
+</div>
+{% endblock %}

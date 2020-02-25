@@ -1,0 +1,16 @@
+{% extends "account/layout.html" %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container theme-showcase" role="main">         
+      
+        
+
+
+         sid - name - address  <br>
+       {% for d in data_list %}
+          {{d.sid}} -  {{d.name}} - {{d.address}}  <br>
+       {% endfor %}
+        
+    </div> <!-- /container -->
+{% endblock %}

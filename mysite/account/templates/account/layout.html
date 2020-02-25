@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block body %}
+   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">更新数据库数据  - {{ user.username }}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          {% block nav %}
+          <ul class="nav navbar-nav">
+             
+            <li><a href="{% url 'list_db' %}">list-db</a></li>
+            <li><a href="{% url 'list_mysql' %}">list-mysql</a></li>
+
+            <li><a href="{% url 'syncdb' %}">更新数据库</a></li>
+            {% if user in operators %}
+            
+            {% endif %}
+            <li><a href="/admin/">管理</a></li>
+            <li><a href="/logout/">退出</a></li>
+
+            <li> <!-- 搜索框 如何居右?  { % url 'search' % }-->
+              <form method="post" action="" class="navbar-form navbar-left" rol="search">
+                {% csrf_token %}
+                <div class="form-group" >
+                  <input name='q' type="text" class="form-control" placeholder="请输入关键词" />
+                </div>
+                <button type="submit" class="btn btn-default">搜 索</button>
+            </form>
+           </li>
+          
+          </ul>
+          {% endblock %}
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/assets/js/vendor/jquery.min.js"></script>
+    <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/docs.min.js"></script>
+    
+{% endblock %}

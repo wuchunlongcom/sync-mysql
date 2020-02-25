@@ -1,0 +1,39 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("p2").hide();
+        $("p1").click(function(){
+            $("p1").hide();
+            $("p2").show();
+            
+        });
+    });
+</script>
+<div>
+   
+    <form action="allow_sync/" method="POST" style="display:inline">
+    	{% csrf_token %}
+    	<span style="color:#f00">必须先按【数据库状态】按钮</span>&nbsp;<button type="submit">数据库状态</button>
+	</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <p2>
+        <span style="font-size:16px; color:#3ACC3A;">数据更新中，请稍等...  &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-spin fa-2x fa-spinner fa-pulse"></i> </span>
+    </p2>
+    
+    <p1>
+    	<form action="sync_in_progress/" method="POST" style="display:inline">
+        {% csrf_token %}            
+         <button type="submit">更新数据库</button>            
+    	</form>
+    <p1>
+
+    
+</div>
+<br/>
+{{ block.super }}
+
+{% endblock %}
