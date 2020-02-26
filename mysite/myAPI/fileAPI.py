@@ -45,13 +45,12 @@ class MyFile:
 
 def readtxt_to_list(filename):
     """
-        功能：读文本文件（抛弃空行），返回列表    
+        功能：读文本文件（抛弃空行，删除左边空格），返回列表    
     """
     try:
         with open(filename,'r') as f:
             lines = f.readlines()
-            return [l  for l in lines if l.strip()] #抛弃空行 
-        return ['']
+            return [l.lstrip()  for l in lines if l.strip()] # 抛弃空行、删除左边空格 
     except Exception as ex:
         return ['']
         
