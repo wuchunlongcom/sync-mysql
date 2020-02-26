@@ -3,7 +3,7 @@
 {% block content %}
     <br><br><br>
     <div class="container theme-showcase" role="main">         
-      <h3> {{meg|safe}} </h3>
+      <h3>总记录： {{ data_list|length }} </h3> <br>
          id - sid - name - address  <br>
        {% for d in data_list %}
           {{d.0}} -  {{d.1}} - {{d.2}}- {{d.3}}   <br>

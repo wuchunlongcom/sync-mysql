@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'django_crontab',
     'myAPI.apps.MyAPIConfig',
     
     'account.apps.AccountConfig',
@@ -135,3 +137,8 @@ STATICFILES_DIRS = (
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# 定时执行任,每分钟执行一次
+CRONJOBS = [
+    ('*/1 * * * *', 'account.cron.work', '>>/tmp/test.log')
+]

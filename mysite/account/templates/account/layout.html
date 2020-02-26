@@ -21,7 +21,9 @@
             <li><a href="{% url 'list_db' %}">list-db</a></li>
             <li><a href="{% url 'list_mysql' %}">list-mysql</a></li>
 
-            <li><a href="{% url 'syncdb' %}">更新数据库</a></li>
+            <li><a href="{% url 'sync_db' %}">不用定时任务-更新数据库</a></li>
+            <li><a href="{% url 'crontab' %}">定时任务-更新数据库</a></li>
+
             {% if user in operators %}
             
             {% endif %}

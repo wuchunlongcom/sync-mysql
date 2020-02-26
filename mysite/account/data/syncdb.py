@@ -4,6 +4,7 @@ import os
 import django
 import datetime
 import xlrd
+from account.models import Student
 
 def getData(sql):
     import pymysql
@@ -22,6 +23,20 @@ def getData(sql):
     db.close()
     return ret    
 
+def syncdb():
+    try:
+        data_list = getData('select * from account_student')
+        for d in data_list:
+            s = Student() 
+            s.sid = d[1]   # id d[0]
+            s.name = d[2]
+            s.address = d[3]
+            s.save()
+        return '%s' %len(data_list) 
+    except Exception as ex:
+        return 'err: %s' %ex
+
+
 """ Oracle
 def getData(sql):
     import cx_Oracle
@@ -37,4 +52,4 @@ def getData(sql):
 """
 
 if __name__ == "__main__":
-    getData('select * from account_student')
+    syncdb()

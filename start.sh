@@ -43,7 +43,8 @@ function write_data_db {
 
 
 function launch_webapp {
-    python3 "${BASE_DIR}/mysite/manage.py" "runserver" "8000"
+    python3 "manage.py" "crontab" "add" # add
+    python3 "manage.py" "runserver" "8000"
 }
 #############
 # Main

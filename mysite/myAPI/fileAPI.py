@@ -109,3 +109,12 @@ def savefile(mode, filename):
     f.close() 
     return 'UpFile: %s. add nowTime. UpFile Success!' %(filename)  
     
+def file_iterator(file_name, chunk_size=512):
+    try:
+        with open(file_name, 'rb') as f:   #python3   'rb'读二进制文件
+            while True:
+                c = f.read(chunk_size)
+                if c: yield c                   
+                else: break #return  okokok   
+    except Exception as ex:
+        yield ''      

@@ -8,5 +8,6 @@ markdown
 django-filter
 monthdelta
 Pillow
+django-crontab
 
 

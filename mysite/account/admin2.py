@@ -24,7 +24,7 @@ STATEFILE = os.path.join(settings.BASE_DIR, 'account','data', 'statefile.txt') #
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('id', 'sid', 'name','address',)
     
-    """ admin 添加按钮   
+    """ admin 添加按钮
         一、关于访问后台admin数据库问题：
         1、在此写入代码后，首次访问页面时，是执行后台代码的，以后再访问该页面，就不执行后台代码了。
         访问页面 http://localhost:8000/admin/classroom/course/
@@ -58,11 +58,23 @@ class StudentAdmin(admin.ModelAdmin):
     def sync_in_progress(self, request):
         """ 同步数据库(正在同步中) """
         if request.method == 'POST':
-            # 状态文件写'0',使用定时执行任务 
+
             with open(STATEFILE,'w+') as fp:  
                 fp.write('0') 
-
-            self.change_list_template = "entities/sync-in-progress.html"             
+                                            
+            data_list = getData('select * from account_student')
+            for d in data_list:
+                s = Student() 
+                s.sid = d[1]   # id d[0]
+                s.name = d[2]
+                s.address = d[3]
+                s.save() 
+                
+                   
+            if os.path.isfile(STATEFILE): #判断文件
+                os.remove(STATEFILE)                                         
+            self.message_user(request, '%s 条记录同步完成.' %len(data_list)) 
+            self.change_list_template = "entities/allow-sync.html"             
         return HttpResponseRedirect("../")
      
     def allow_sync(self, request):
