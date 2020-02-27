@@ -1,6 +1,8 @@
 {% extends 'admin/change_list.html' %}
 
 {% block object-tools %}
+<meta http-equiv="refresh" content="60">   <!-- 每隔60秒刷新一次页面 -->
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <script>
@@ -21,7 +23,7 @@
 	</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     <p2>
-        <span style="font-size:16px; color:#3ACC3A;">数据更新中，请稍等...  &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-spin fa-2x fa-spinner fa-pulse"></i> </span>
+        <span style="font-size:16px; color:#3ACC3A;">开始更新... 若记录数发生变化，更新完成.  &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-spin fa-2x fa-spinner fa-pulse"></i> </span>
     </p2>
     
     <p1>
