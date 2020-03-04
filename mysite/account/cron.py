@@ -11,7 +11,8 @@
 # 2.4 文件存在+内容是1-同步中+没有同步脚本在跑 —> 删除文件
 # 2.5 文件存在+内容不是0/1  —> 删除文件
 # 2.6 文件不存在  ——> 啥也不做
-
+# from django.http.response import HttpResponseRedirect  不支持切换！
+# print('read_txt(STATEFILE):',read_txt(STATEFILE))  # 查看日记 /tmp/test.log
 
 def work():
     
@@ -20,11 +21,11 @@ def work():
     from myAPI.fileAPI import read_txt
     from django.conf import settings
     from .models import Student
-    # from django.http.response import HttpResponseRedirect  不支持切换！
+    
 
     STATEFILE = os.path.join(settings.BASE_DIR, 'account','data', 'statefile.txt') # 状态文件
         
-    # print('read_txt(STATEFILE):',read_txt(STATEFILE))  # 查看日记 /tmp/test.log
+    
     
     if os.path.isfile(STATEFILE) and read_txt(STATEFILE) == '0':
        

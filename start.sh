@@ -11,10 +11,10 @@ function logging {
     echo "[INFO] $*"
 }
 function build_venv {
-    if [ ! -d env375 ]; then
-        virtualenv env375
+    if [ ! -d env ]; then
+        virtualenv env
     fi
-    . env375/bin/activate
+    . env/bin/activate
     pip3 install -r requirements.txt
 
 }
@@ -43,8 +43,8 @@ function write_data_db {
 
 
 function launch_webapp {
-    python3 "manage.py" "crontab" "add" # add
-    python3 "manage.py" "runserver" "8000"
+    #python "manage.py" "crontab" "add" # add
+    python "manage.py" "runserver" "8000"
 }
 #############
 # Main

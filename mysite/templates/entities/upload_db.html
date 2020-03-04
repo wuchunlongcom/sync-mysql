@@ -1,0 +1,76 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block extrastyle %}
+	{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}"/>
+{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block breadcrumbs %}
+
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ app_label|capfirst|escape }}</a>
+        &rsaquo; {% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">
+        {{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
+        &rsaquo; {% trans 'Upload' %}
+    </div>
+{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("p2").hide();
+        $("p1").click(function(){
+            $("p2").show();
+            $("p1").hide();
+        });
+    });
+</script>
+
+<h3>{{meg}}</h3>	
+
+	{% if form.errors %}
+	    <p class="errornote">
+	    {% if form.errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+	    </p>
+	    {{ form.non_field_errors }}
+	{% endif %}
+
+	{% if isfile %}
+
+        <h1 class="default"><span style="display:inline">数据库同步中，请稍等... </span></h1>
+    
+    {% else %}
+
+        <form action="{% url 'admin:photologue_upload_db' %}" method="post" id="zip_upload_form"
+            {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
+            <div>
+            {% for fieldset in adminform %}
+                {% include "admin/includes/fieldset.html" %}
+            {% endfor %}
+            </div>
+
+            <p1>
+                <div class="submit-row">
+                    <input type="submit" value="{% trans 'Confirm Upload' %}" class="default"/>
+                </div>
+            </p1>
+        
+        </form>
+        <p2>
+            <span style="font-size:20px; color:#3ACC3A;">数据更新中，请稍等...  </span>
+        </p2>
+
+    {% endif %}
+
+
+{% endblock %}

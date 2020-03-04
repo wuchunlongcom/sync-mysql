@@ -16,7 +16,7 @@ from .models import Student
 from account.data.syncdb import getData
 from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
-
+from account.data.syncdb import syncdb
 
 STATEFILE = os.path.join(settings.BASE_DIR, 'account','data', 'statefile.txt') # 状态文件
 
@@ -45,35 +45,46 @@ class StudentAdmin(admin.ModelAdmin):
         （3）删除状态文件
           
     """
-    
-    change_list_template = "entities/sync-in-progress.html"     
-    def get_urls(self):        
+
+    change_list_template = 'entities/heroes_button.html'
+    def get_urls(self):
         urls = super().get_urls()
-        my_urls = [
-            url('sync_in_progress/', self.sync_in_progress),
-            url('allow_sync/', self.allow_sync),
+        custom_urls = [
+            url(r'^upload_db/$',
+                self.admin_site.admin_view(self.upload_db),
+                name='photologue_upload_db'),  
         ]
-        return my_urls + urls
-    
-    def sync_in_progress(self, request):
-        """ 同步数据库(正在同步中) """
-        if request.method == 'POST':
-            # 状态文件写'0',使用定时执行任务 
-            with open(STATEFILE,'w+') as fp:  
-                fp.write('0') 
+        return custom_urls + urls
 
-            self.change_list_template = "entities/sync-in-progress.html"             
-        return HttpResponseRedirect("../")
-     
-    def allow_sync(self, request):
-        """判断文件是否存在"""        
-        if os.path.exists(STATEFILE):
-            # 状态文件存在,显示‘数据库状态’按钮,  正在同步... 此时是不能更新数据库数据
-            self.change_list_template = "entities/sync-in-progress.html"             
-        else:
-            # 状态文件不存在,显示‘数据库状态’按钮, '更新数据库'    允许更新数据库数据
-            self.change_list_template = "entities/allow-sync.html" 
-        return HttpResponseRedirect("../")
+    def upload_db(self, request):
+        
+        context = {
+            'title': ('Upload db'),
+            'app_label': self.model._meta.app_label,
+            'opts': self.model._meta,
+            'has_change_permission': self.has_change_permission(request)
+        }
 
-
-
+        if request.method == 'POST':                      
+            
+            if not os.path.isfile(STATEFILE):
+       
+                with open(STATEFILE,'w+') as f:
+                    f.write('1111')  # '0'禁用，不使用定时执行任务。
+                
+                meg = syncdb()
+                meg = '%s 条记录更新完成.' %meg if 'err' not in meg else meg
+                             
+                if os.path.isfile(STATEFILE): 
+                    os.remove(STATEFILE) 
+                    
+            self.message_user(request, meg)
+                             
+            return HttpResponseRedirect("../")
+            
+        else: 
+                   
+            isfile = True if os.path.isfile(STATEFILE) else False
+            context.update({'isfile':isfile, 'meg':'再次确认是否更新？',})
+            
+        return render(request, 'entities/upload_db.html', context)

@@ -140,5 +140,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 # 定时执行任,每分钟执行一次
 CRONJOBS = [
-    ('*/1 * * * *', 'account.cron.work', '>>/tmp/test.log')
+    #('*/1 * * * *', 'account.cron.work', '>>/tmp/test.log')
+    ('*/1 * * * *', 'account.cron.work')
 ]
