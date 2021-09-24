@@ -1,12 +1,11 @@
 
-### 运行工程步骤  2021.09.24
+### sync-mysql  
 
 ### 快速 进入py366
 ```
 $ source  /Users/wuchunlong/local/py366/env/bin/activate
 $ cd /Users/wuchunlong/local/github/sync-mysql
 ```
-
 ### 运行工程
 ```
 初次运行
@@ -16,7 +15,6 @@ $ cd /Users/wuchunlong/local/github/sync-mysql
 运行
 $ ./start.sh
 ```
-
 ### 主要功能
 ```
 本例使用了mysql、db.sqlite3两个数据库。
@@ -28,7 +26,6 @@ $ ./start.sh
 3、admin 添加一个按钮-不用定时任务。按‘更新数据库按钮’-正在更新...-更新完成-显示‘更新数据库按钮’（更新的记录数）。 
 
 ```
-
 ### 使用到的技术
 ```
 1、定时执行任务、数据库数据更新
@@ -37,7 +34,6 @@ $ ./start.sh
 4、mysql数据库
 5、脚本操作mysql   https://www.cnblogs.com/study-learning/p/10800820.html
 ```
-
 ### 验证步骤详情  
 ```
 1、$ ./create_mysql.sh  创建mysql-studb数据库;
@@ -84,3 +80,16 @@ Quit the server with CONTROL-C.
 removing cronjob: (b173a63adf4d670247b6b63dd93bc07b) -> ('*/1 * * * *', 'account.cron.test', '>>/tmp/test.log')
 ```
 
+### 下拉
+```
+$ git clone https://github.com/wuchunlongcom/sync-mysql
+```
+
+### 推送
+```
+$ rm  -rf env
+$ git add .
+$ git ci -a -m 'add data'
+$ git push https://wuchunlongcom%40outlook.com: TOKEN @github.com/wuchunlongcom/sync-mysql  必须更换TOKEN！
+```
+更新时间： 2021.09.24
