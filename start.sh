@@ -33,7 +33,7 @@ function creator_db {
 
     logging "migrate"
     python "manage.py" "migrate"
-    
+
 }
 
 function write_data_db {
@@ -43,7 +43,7 @@ function write_data_db {
 
 
 function launch_webapp {
-    #python "manage.py" "crontab" "add" # add
+    python "manage.py" "crontab" "add" # add
     python "manage.py" "runserver" "8000"
 }
 #############

@@ -24,17 +24,11 @@ def getData(sql):
     return ret    
 
 def syncdb():
-    try:
-        data_list = getData('select * from account_student')
-        for d in data_list:
-            s = Student() 
-            s.sid = d[1]   # id d[0]
-            s.name = d[2]
-            s.address = d[3]
-            s.save()
-        return '%s' %len(data_list) 
-    except Exception as ex:
-        return 'err: %s' %ex
+    items = getData('select * from account_student')
+    items = [Student(sid=i[1], name=i[2], address=i[3]) for i in items]
+    Student.objects.bulk_create(items, batch_size=20)
+    return '%s' %len(items)
+
 
 
 """ Oracle
