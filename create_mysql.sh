@@ -29,6 +29,7 @@ function create_db {
 	PASSWORD="12345678"
 	DBNAME="studb"  # 数据库名称
 
+	#shell脚本写mysql语句  https://www.cnblogs.com/study-learning/p/10800820.html
 	# 删除数据库
 	delete_sql="drop database ${DBNAME}"
 	mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e "${delete_sql}"

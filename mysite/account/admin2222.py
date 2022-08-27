@@ -1,5 +1,5 @@
 """
-### admin 添加一个按钮注意事项 
+### admin2222 没有作用，作为资料保存！
       
 ```
 1、添加admin模板    ../templates/admin/account/photo/upload_zip.html；
@@ -16,7 +16,6 @@ from .models import Student
 from account.data.syncdb import getData
 from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
-from account.data.syncdb import syncdb
 from mysite.settings import STATEFILE  
 
 @admin.register(Student)
@@ -31,7 +30,7 @@ class StudentAdmin(admin.ModelAdmin):
         
         二、本例采用另外方法，实现下列功能：
         1、admin 添加按钮
-        2、按‘数据库状态’按钮，判断syncdbstatus.tx 状态文件是否存在
+        2、按‘数据库状态’按钮，判断syncdbstatus.txtt 状态文件是否存在
         如果状态文件不存在(允许更新同步)，显示‘数据库状态’按钮、‘同步数据库’按钮。按‘同步数据库’按钮，创建一个状态文件
         如果状态文件存在(正在同步中)，显示‘数据库状态’按钮、‘数据库同步中，请稍等...’。 
         
@@ -65,15 +64,20 @@ class StudentAdmin(admin.ModelAdmin):
         }
 
         if request.method == 'POST':                      
+            
             if not os.path.isfile(STATEFILE):
        
                 with open(STATEFILE,'w+') as f:
-                    f.write('0')  # '0' 定时执行任务。
-                               
-                while True:         
-                    if not os.path.isfile(STATEFILE):
-                        break                    
-                self.message_user(request, '更新完成')
+                    #f.write('0')  # '0使用定时执行任务。
+                    f.write('1111')  # '0'禁用，不使用定时执行任务。
+                
+                meg = syncdb()
+                meg = '%s 条记录更新完成.' %meg if 'err' not in meg else meg
+                             
+                if os.path.isfile(STATEFILE): 
+                    os.remove(STATEFILE) 
+                    
+            self.message_user(request, meg)
                              
             return HttpResponseRedirect("../")
             

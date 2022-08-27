@@ -35,7 +35,7 @@
     });
 </script>
 
-<h3>{{meg}}</h3>	
+
 
 	{% if form.errors %}
 	    <p class="errornote">
@@ -45,7 +45,7 @@
 	{% endif %}
 
 	{% if isfile %}
-
+       
         <h1 class="default"><span style="display:inline">数据库同步中，请稍等... </span></h1>
     
     {% else %}
@@ -60,6 +60,7 @@
             </div>
 
             <p1>
+                 <h3>{{meg}}</h3>	
                 <div class="submit-row">
                     <input type="submit" value="{% trans 'Confirm Upload' %}" class="default"/>
                 </div>
@@ -67,7 +68,8 @@
         
         </form>
         <p2>
-            <span style="font-size:20px; color:#3ACC3A;">数据更新中，请稍等...  </span>
+           
+            <span style="font-size:20px; color:#3ACC3A;">数据库同步中，请稍等...  </span>
         </p2>
 
     {% endif %}

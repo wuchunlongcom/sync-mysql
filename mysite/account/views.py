@@ -5,10 +5,8 @@ from django.http.response import HttpResponseRedirect, HttpResponse
 from .models import Student
 from account.data.syncdb import getData, syncdb
 from django.contrib.auth.decorators import login_required
-from mysite.settings import BASE_DIR    
+from mysite.settings import STATEFILE    
 
-STATEFILE = os.path.join(BASE_DIR, 'account','data', 'syncdbstatus.txt') # 状态文件
-    
 def list_mysql(request):
     meg = 'ok'
     global STATEFILE    
@@ -32,14 +30,15 @@ def list_db(request):
 @login_required
 def sync_db(request):
     '''
+    不用定时任务(删除状态文件，定时执行任务空跑)   
     空跑 定时执行任务
-    1. 文件不存在：空跑 定时执行任务
+    1. 状态文件不存在： 定时执行任务空跑
     2. 文件存在：显示"数据库同步中，请稍等..."文本
     '''
     meg = '更新数据库'
 
     global STATEFILE    
-    # 空跑 定时执行任务
+    # 删除状态文件，定时执行任务空跑
     if os.path.isfile(STATEFILE): #判断文件
         os.remove(STATEFILE) 
              
@@ -59,7 +58,11 @@ def crontab(request):
    
     '''     
     global STATEFILE
-    if request.method == 'POST' and not os.path.isfile(STATEFILE):
+    #if os.path.isfile(STATEFILE): #判断文件
+    #    os.remove(STATEFILE) 
+    
+    # 状态文件写'0',使用定时执行任务
+    if request.method == 'POST':
         with open(STATEFILE, 'w+') as fp:
             fp.write('0')
     
