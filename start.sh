@@ -55,6 +55,7 @@ OPT_ENV_FORCE=$1
 build_venv
 
 cd ${BASE_DIR}/mysite
+
 #创建数据库表，适合添加数据库后操作，能重复操作，不会破坏数据。
 if [ "${OPT_ENV_FORCE}x" == "-cx" ];then    
     creator_db

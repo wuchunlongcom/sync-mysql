@@ -5,17 +5,19 @@
 ###python3.6.6   django版本: 2.2.6。
 ### 快速 进入py366
 ```
-$ source  /Users/wuchunlong/local/py366/env/bin/activate
-$ cd /Users/wuchunlong/local/github/sync-mysql
+(env) $ source  /Users/wuchunlong/local/py366/env/bin/activate
+(env) $ cd /Users/wuchunlong/local/github/sync-mysql
 ```
 ### 运行工程
 ```
 初次运行
-1、$ ./create_mysql.sh  创建mysql-studb数据库和表; 只能在Python 3.6.6环境工作！
-2、$ python mysite/init_mysql.py  给mysql-studb数据库account_student表，初始化1000条记录；
-3、$ ./start.sh -i  运行
+1、(env) $ ./create_mysql.sh  创建mysql-studb数据库和表; 只能在Python 3.6.6环境工作！
+2、(env) $ python mysite/init_mysql.py  给mysql-studb数据库account_student表，初始化1000条记录；
+3、(env) $ ./start.sh -i  运行
 运行
-$ ./start.sh
+(env) $ ./start.sh
+
+admin/admin
 ```
 ### 主要功能
 ```
@@ -38,12 +40,12 @@ $ ./start.sh
 ```
 ### 创建mysql-studb数据库,初始化1000条记录
 ```
-1、$ ./create_mysql.sh  创建mysql-studb数据库;
+1、(env) $ ./create_mysql.sh  创建mysql-studb数据库;
 ...
 Applying auth.0008_alter_user_username_max_length... OK
 Applying sessions.0001_initial... OK
 
-2、$ python mysite/init_mysql.py  给mysql-studb数据库的account_student表，初始化1000条记录；
+2、(env) $ python mysite/init_mysql.py  给mysql-studb数据库的account_student表，初始化1000条记录；
 ...
 
 ### 验证步骤详 
@@ -60,7 +62,7 @@ mysql>select * from account_student;  # 显示表数据
 |   3 | sid-2  | name-2  | address-2  |
 mysql> drop database studb; # 删除数据库studb
 mysql> quit   
-3、$ ./start.sh -i
+3、(env) $ ./start.sh -i
 ###本机运行时，出现【终端.APP对话框】，选择【好】
 ...
 removing cronjob: (aae4bd6b5a8e7449f14322a064c567a2) -> ('*/1 * * * *', 'account.cron.work')
@@ -85,15 +87,15 @@ removing cronjob: (b173a63adf4d670247b6b63dd93bc07b) -> ('*/1 * * * *', 'account
 
 ### 下拉
 ```
-$ git clone https://github.com
+(env) $ git clone https://github.com
 ```
 
 ### 推送
 ```
-$ rm  -rf env
-$ git add .
-$ git ci -a -m 'add data'
-$ git push   必须T用OKEN！
+(env) $ rm  -rf env
+(env) $ git add .
+(env) $ git ci -a -m 'add data'
+(env) $ git push   必须T用OKEN！
 ```
 
 ### 定时器 跑同步脚本
