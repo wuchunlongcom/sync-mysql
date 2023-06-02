@@ -11,7 +11,7 @@
 ### 运行工程
 ```
 初次运行
-1、(env) $ ./create_mysql.sh  创建mysql-studb数据库和表; 只能在Python 3.6.6环境工作！
+1、(env) $ ./create_mysql.sh  创建mysql-studb数据库和表; 只能在Python3.6.6环境工作！
 2、(env) $ python mysite/init_mysql.py  给mysql-studb数据库account_student表，初始化1000条记录；
 3、(env) $ ./start.sh -i  运行
 运行
@@ -30,13 +30,13 @@ admin/admin
 ```
 本例使用了mysql、db.sqlite3两个数据库。
 运行$ python mysite/init_mysql.py， mysql获得初始化1000条记录；
-通过数据更新，本例用三种方法，将mysql数据库数据，写入到db.sqlite3数据库；
+数据库数据更新。本例用三种方法，将mysql数据库数据，写入到db.sqlite3数据库；
  
 1、定时执行任务、数据库数据更新
 2、每隔60秒刷新一次页面
 3、程序运行过程显示动画
-4、mysql数据库
-5、shell脚本写mysql语句 脚本操作mysql   https://www.cnblogs.com/study-learning/p/10800820.html
+4、mysql数据库，实现一键创建数据库、一键给数据库的表赋值。  
+5、shell脚本写mysql语句 脚本操作mysql。 
 ```
 ### 创建mysql-studb数据库,初始化1000条记录
 ```
@@ -48,7 +48,7 @@ Applying sessions.0001_initial... OK
 2、(env) $ python mysite/init_mysql.py  给mysql-studb数据库的account_student表，初始化1000条记录；
 ...
 
-### 验证步骤详 
+### 在本机上可以查重mysql studb数据库，是否创建成功
 $ mysql -u root -p
 mysql> show databases;  # 显示数据库
 mysql> use studb;   # 使用数据库studb   必须！！！
@@ -95,7 +95,7 @@ removing cronjob: (b173a63adf4d670247b6b63dd93bc07b) -> ('*/1 * * * *', 'account
 (env) $ rm  -rf env
 (env) $ git add .
 (env) $ git ci -a -m 'add data'
-(env) $ git push   必须T用OKEN！
+(env) $ git push   必须用TOKEN！
 ```
 
 ### 定时器 跑同步脚本
@@ -117,4 +117,63 @@ removing cronjob: (b173a63adf4d670247b6b63dd93bc07b) -> ('*/1 * * * *', 'account
  2.4 状态文件不存在
      空跑、啥也不做
 ```
+
+###shell脚本写mysql语句
+```
+mysql  -hhostname -Pport -uusername -ppassword  -e  相关mysql的sql语句，不用在mysql的提示符下运行mysql，即可以在shell中操作mysql的方法。
+
+#!/bin/bash
+
+HOSTNAME="192.168.111.84"                                           #数据库信息
+PORT="3306"
+USERNAME="root"
+PASSWORD=""
+
+DBNAME="test_db_test"                                                       #数据库名称
+TABLENAME="test_table_test"                                            #数据库中表的名称
+
+#创建数据库
+create_db_sql="create database IF NOT EXISTS ${DBNAME}"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} -e "${create_db_sql}"
+
+#创建表
+create_table_sql="create table IF NOT EXISTS ${TABLENAME} (  name varchar(20), id int(11) default 0 )"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${create_table_sql}"
+
+#插入数据
+insert_sql="insert into ${TABLENAME} values('billchen',2)"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${insert_sql}"
+
+#查询
+select_sql="select * from ${TABLENAME}"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${select_sql}"
+
+#更新数据
+update_sql="update ${TABLENAME} set id=3"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${update_sql}"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${select_sql}"
+
+#删除数据
+delete_sql="delete from ${TABLENAME}"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${delete_sql}"
+mysql -h${HOSTNAME}  -P${PORT}  -u${USERNAME} -p${PASSWORD} ${DBNAME} -e"${select_sql}"
+
+https://www.cnblogs.com/study-learning/p/10800820.html
+
+```
+
+###备注
+```
+问题
+(env375) wuchunlong@wuchunlong model$ mysql -u root -p
+	dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+	...
+解决
+(env375) wuchunlong@wuchunlong model$ brew upgrade mysql
+
+(env375) wuchunlong@wuchunlong model$ mysql -u root -p
+	Enter password: 12345678
+	mysql>
+```
+https://github.com/wuchunlongcom/sync-mysql
 更新时间： 2022.08.26
