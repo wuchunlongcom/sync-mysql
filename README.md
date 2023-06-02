@@ -2,7 +2,7 @@
 ### sync-mysql  
 ### django crontab定时执行任务。将mysql数据库的数据同步到db.sqlite3
 
-###python3.6.6   django版本: 2.2.6。
+### python3.6.6   django版本: 2.2.6。
 ### 快速 进入py366
 ```
 (env) $ source  /Users/wuchunlong/local/py366/env/bin/activate
@@ -118,7 +118,7 @@ removing cronjob: (b173a63adf4d670247b6b63dd93bc07b) -> ('*/1 * * * *', 'account
      空跑、啥也不做
 ```
 
-###shell脚本写mysql语句
+### shell脚本写mysql语句
 ```
 mysql  -hhostname -Pport -uusername -ppassword  -e  相关mysql的sql语句，不用在mysql的提示符下运行mysql，即可以在shell中操作mysql的方法。
 
@@ -162,7 +162,7 @@ https://www.cnblogs.com/study-learning/p/10800820.html
 
 ```
 
-###备注
+### 备注
 ```
 问题
 (env375) wuchunlong@wuchunlong model$ mysql -u root -p
@@ -174,6 +174,7 @@ https://www.cnblogs.com/study-learning/p/10800820.html
 (env375) wuchunlong@wuchunlong model$ mysql -u root -p
 	Enter password: 12345678
 	mysql>
+
+更新时间： 2022.08.26
 ```
 https://github.com/wuchunlongcom/sync-mysql
-更新时间： 2022.08.26
